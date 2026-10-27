@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+*.db
+*.db-journal
+
+# Node / Next
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Playwright
+test-results/
+playwright-report/
+frontend/.reference-profile/
+reference/
+
+.DS_Store
+
+# backend/.env and frontend/.env hold only local, non-secret defaults and are committed.
+# If you ever add secrets, put them in .env.local (frontend) or real environment variables.
+.env.local

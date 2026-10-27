@@ -1,0 +1,9 @@
+# Runtime dependencies (installed by Vercel and locally)
+fastapi==0.118.0
+uvicorn[standard]==0.37.0
+sqlalchemy==2.0.44
+pydantic==2.12.3
+python-dotenv==1.1.1
+# Hosted SQLite (Turso) driver for production. Linux/macOS only, so Windows skips it;
+# locally the app uses a plain SQLite file and doesn't need it.
+sqlalchemy-libsql==0.2.0; sys_platform != "win32"

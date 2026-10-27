@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 255 255 255;
+  --surface: 255 255 255;
+  --line: 229 229 229;
+  --ink: 75 75 75;
+  --muted: 119 119 119;
+  --locked: 229 229 229;
+  --locked-shadow: 183 183 183;
+  --locked-icon: 175 175 175;
+  --panel: 221 244 255;
+  --soft: 119 119 119;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: 19 31 36;
+  --surface: 19 31 36;
+  --line: 55 70 79;
+  --ink: 241 247 251;
+  --muted: 130 145 153;
+  --locked: 55 70 79;
+  --locked-shadow: 39 52 59;
+  --locked-icon: 82 101 109;
+  --panel: 32 47 54;
+  --soft: 220 230 236;
+  color-scheme: dark;
+}
+
+html,
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--ink));
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The chunky "3D" press effect used by every button, card and node. */
+@layer components {
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-2xl px-4 font-extrabold uppercase tracking-[0.8px] transition-[transform,filter] duration-75;
+    min-height: 48px;
+    box-shadow: 0 4px 0 var(--btn-shadow, rgb(var(--line)));
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(4px);
+    box-shadow: none;
+  }
+  .btn:hover:not(:disabled) {
+    filter: brightness(1.05);
+  }
+  .btn:disabled {
+    @apply cursor-not-allowed bg-locked text-muted;
+    box-shadow: 0 4px 0 rgb(var(--line));
+  }
+  .tile {
+    @apply rounded-2xl border-2 border-b-4 border-line bg-surface transition-colors;
+  }
+  .tile-press:active:not(:disabled) {
+    @apply border-b-2;
+    transform: translateY(2px);
+  }
+}
+
+:focus-visible {
+  outline: 3px solid #1cb0f6;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
