@@ -1,307 +1,409 @@
-# lingoleap: a Duolingo-style language learning app
+🦊 lingoleap — Learn Languages, One Leap at a Time
 
-A full-stack clone of the Duolingo web experience. You move along a learning path, play
-lessons made of five exercise types, earn XP, keep a streak, lose and regain hearts, and
-compete in a weekly league.
+<p align="center">
+<strong>A gamified, full-stack language learning experience.</strong>
+<br />
+Learn Spanish through interactive lessons, build daily streaks, earn XP, and compete with friends — all in one playful learning experience.
+</p>
 
-**Stack:** Next.js 14 (App Router, TypeScript, Tailwind CSS) · FastAPI · SQLAlchemy 2 · SQLite · Playwright
+<p align="center">
+<img src="https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js" alt="Next.js 14" />
+<img src="https://img.shields.io/badge/TypeScript-Ready-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+<img src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" />
+<img src="https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite" />
+<img src="https://img.shields.io/badge/Playwright-Tested-2EAD33?style=for-the-badge&logo=playwright&logoColor=white" alt="Playwright" />
+</p>
 
-> The app recreates Duolingo's layout, palette, motion and UX patterns. It does **not** use
-> Duolingo's trademarks: the owl, logo, wordmark and proprietary font are replaced by an
-> original fox mascot ("Pip"), the name `lingoleap` (set in `frontend/src/lib/brand.ts`) and
-> the open-source Nunito font.
+<p align="center">
+<a href="#-getting-started">Get Started</a> •
+<a href="#-features">Features</a> •
+<a href="#-architecture">Architecture</a> •
+<a href="#-deployment">Deployment</a>
+</p>
 
----
+✨ About the Project
 
-## Quick start
+lingoleap is a full-stack language learning web application inspired by the engaging mechanics of gamified learning platforms.
 
-Requirements: Python 3.12–3.14 and Node 18.18+ (Node 20+ recommended). On Windows no C++ build tools are needed: every Python package installs from a prebuilt wheel.
+Follow a visual learning path, complete bite-sized lessons, practice vocabulary and grammar, earn experience points, maintain your daily streak, and climb the weekly leaderboard.
 
-### Option A: VS Code (recommended)
+The experience combines an interactive Next.js frontend with a FastAPI backend that handles lesson sessions, answer validation, progress tracking, hearts, rewards, and achievements.
 
-1. Open the repository folder in VS Code and install the recommended extensions when prompted.
-2. `Terminal → Run Task… → Setup: everything` (creates `backend/.venv` and installs packages).
-3. `Run and Debug → Full stack (backend + frontend) → ▶`. The backend runs under the debugger, so breakpoints work.
-4. Open http://localhost:3000.
+Meet Pip, the original fox mascot that guides learners throughout their journey. 🦊
 
-### Option B: terminal
+Built as a learning project exploring full-stack development, interactive UI design, REST APIs, database modeling, and automated testing.
+🚀 Features
+📚 Interactive Learning
+Visual, zigzag learning path with three units and nine skills.
+Active, completed, and locked lesson states.
+Lesson progress rings, crowns, and reward chests.
+Unit-specific guidebooks with translations and grammar explanations.
+Spanish pronunciation tiles with browser-based audio.
+🎮 Gamified Lessons
+Five exercise types:
+Multiple choice
+Translation with a word bank or keyboard
+Match the pairs
+Fill in the blank
+Type the answer
+Instant answer feedback and progress tracking.
+Incorrect exercises return to the queue until solved.
+Keyboard shortcuts for faster navigation.
+Lesson completion summaries with XP, accuracy, and time.
+❤️ Progress & Rewards
+Hearts that decrease when you make mistakes.
+Automatic heart regeneration every 30 minutes.
+Heart refills using gems.
+Practice mode for earning hearts.
+Daily streaks and longest streak tracking.
+Configurable daily XP goals.
+Daily quests and seven achievements.
+Weekly Bronze league with a promotion zone.
+👤 Profile & Social
+Learner statistics and progress summaries.
+Seven-day XP history chart.
+Achievement tracking.
+Weekly leaderboard with seeded rival learners.
+Leaderboard unlock progression.
+🎨 Modern User Experience
+Responsive desktop, tablet, and mobile layouts.
+Dark mode by default, with a light theme option.
+Sidebar navigation and mobile bottom navigation.
+Animated feedback, celebration screens, and confetti.
+Browser speech synthesis and generated sound effects.
+Bottom-sheet modals on mobile devices.
+🛠️ Developer Experience
+REST API with interactive Swagger documentation.
+SQLAlchemy 2 ORM and SQLite persistence.
+Automatically seeded demo data.
+Controllable application clock for streak testing.
+Developer utilities for resetting demo progress.
+Pytest backend tests and Playwright end-to-end tests.
+🧰 Tech Stack
+Technology	Purpose
+Next.js 14	Frontend framework and App Router
+TypeScript	Type-safe frontend development
+Tailwind CSS	Responsive styling and UI design
+FastAPI	Backend REST API
+SQLAlchemy 2	Database ORM
+SQLite	Persistent relational data
+Pydantic	API validation and schemas
+Pytest	Backend and game-rule testing
+Playwright	Browser automation and E2E testing
+Nunito	Open-source interface typography
+🖥️ Getting Started
 
-```bash
-# backend
+Follow these steps to run lingoleap locally.
+
+Prerequisites
+
+Make sure you have installed:
+
+Python 3.12–3.14
+Node.js 18.18 or newer (Node.js 20+ recommended)
+npm
+Git
+1. Clone the repository
+bash
+git clone <YOUR_REPOSITORY_URL>
+cd lingoleap
+
+
+Replace <YOUR_REPOSITORY_URL> with your GitHub repository URL.
+
+2. Start the backend
+
+Open a terminal:
+
+bash
 cd backend
 python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r requirements-dev.txt   # runtime + test tools
+
+
+Activate the virtual environment.
+
+Windows — PowerShell
+
+powershell
+.venv\Scripts\Activate.ps1
+
+
+macOS / Linux
+
+bash
+source .venv/bin/activate
+
+
+Install dependencies:
+
+bash
+pip install -r requirements-dev.txt
+
+
+Start the API server:
+
+bash
 uvicorn app.main:app --reload --port 8000
 
-# frontend (second terminal)
+
+The backend will be available at:
+
+API: http://localhost:8000
+Swagger documentation: http://localhost:8000/docs
+ReDoc: http://localhost:8000/redoc
+
+The database is initialized and seeded automatically on first startup.
+
+3. Start the frontend
+
+Open a second terminal:
+
+bash
 cd frontend
 npm install
 npm run dev
-```
 
-Settings live in `backend/.env` (database path, CORS origins, heart timer, dev routes) and
-`frontend/.env` (`BACKEND_URL`, where `/api/*` is forwarded). Both ship with working local defaults, so there is
-nothing to copy. Edit them in place. The backend loads its `.env` on startup, and real
-environment variables (e.g. on Render) override it.
 
-The database is created and seeded automatically on first start. To start over:
-`python -m app.seed.seed --reset` (or **Settings → Developer tools → Reset demo** in the app).
+Open the application:
 
-Interactive API docs: http://localhost:8000/docs
+http://localhost:3000
 
-### Tests
+That's it! Your local learning environment should now be ready. 🎉
 
-```bash
-cd backend && pytest -q                       # API + game rules (10 tests)
-cd frontend && npx playwright install chromium && npx playwright test   # e2e, desktop + mobile
-```
+⚡ Quick Setup with VS Code
 
-Playwright starts both servers itself if they aren't running. Activate the backend venv first so `python` resolves to it.
+Prefer using VS Code?
 
----
+Open the repository folder.
+Install the recommended extensions.
+Run Terminal → Run Task → Setup: everything.
+Open Run and Debug.
+Select Full stack (backend + frontend) and start debugging.
+Visit http://localhost:3000.
+🧪 Testing
 
-## Features
+lingoleap includes automated tests for backend game rules and browser-based user flows.
 
-| Area | What's implemented |
-| --- | --- |
-| Learning path | 3 units / 9 skills, zig-zag node path, sticky unit banners with a Guidebook button, completed / active / locked states, progress ring on the active skill, crowns, reward chests, "Jump here" marker, lesson popover |
-| Guidebook | Per-unit page (from the banner's Guidebook button): key phrases in speech bubbles with audio and hover/tap translations, plus grammar tips with example tables; stored in the database |
-| Sounds | Spanish vowels and tricky consonants as tappable tiles with audio |
-| Right rail | Super upsell card (opens "coming soon"), Unlock Leaderboards card until 10 lessons are done, then the league card, Daily Quests |
-| Top bar | Course flag, streak (grey until you practice today), gems, hearts, each opening a detail panel (next-heart timer, refill, practice) |
-| Lesson player | Multiple choice (picture and text), translate with word bank or keyboard, match pairs, fill in the blank, type the answer; Check/Skip bar; green/red feedback bar; progress bar; hearts; missed exercises re-queued until solved; combo counter; Enter and 1–9 keyboard shortcuts |
-| Celebration flow | Lesson complete (XP, accuracy, time, confetti), "day streak!" screen when the streak grows, achievement unlocked screen |
-| Hearts | −1 per mistake, regenerate 1 every 30 min, refill for 350 gems, "practice to earn hearts" mode (mistakes are free, +1 heart on finish), out-of-hearts modal, quit confirmation |
-| Gamification | XP, daily goal (10/20/30/50), daily quests, streak + longest streak, weekly Bronze league with promotion zone, 7 achievements |
-| Profile | Stats, last-7-days XP chart, achievements with progress |
-| Extras (bonus) | Text-to-speech audio (browser voices), synthesized sound effects, dark mode (the default; light mode in Settings), achievements, functioning leaderboard across seeded users |
-| Placeholders | Super subscription, streak freeze, guidebook, notifications, friends, speaking exercises: shown as "Coming soon" |
-| Responsive | Desktop: full sidebar + right rail · Tablet: icon sidebar + top bar · Phone: top bar + bottom nav, bottom-sheet modals |
+Backend tests
+bash
+cd backend
+pytest -q
 
----
+Frontend end-to-end tests
+bash
+cd frontend
+npx playwright install chromium
+npx playwright test
 
-## Architecture
 
-```
-┌────────────────────────── frontend/ (Next.js) ─────────────────────────┐
-│ app/(main)/*      pages with sidebar + right rail (learn, leaderboard…) │
-│ app/lesson/[id]   full-screen lesson player                             │
-│ components/       ui · layout · path · lesson/exercises · cards         │
-│ context/          LearnerContext: stats shared by all screens + toasts  │
-│ lib/api.ts        typed fetch client (same-origin /api, proxied)        │
-└──────────────────────────────┬─────────────────────────────────────────┘
-                               │ JSON over HTTP (CORS)
-┌──────────────────────────────▼──────── backend/ (FastAPI) ─────────────┐
-│ routers/    me · course · lessons · social (leaderboard, shop) · dev   │
-│ services/   answers (checking) · gamification (hearts, streak, XP,     │
-│             achievements) · progress (lock states) · presenters        │
-│ models.py   SQLAlchemy ORM   ·   schemas.py  Pydantic API contract     │
-│ clock.py    controllable "now" for testing streaks                     │
-│ seed/       content.py (course data) → generator.py (exercises)        │
-└──────────────────────────────┬─────────────────────────────────────────┘
-                               ▼
-                         SQLite (lingo.db)
-```
+Playwright can start the frontend and backend automatically when configured to do so. Activate the backend virtual environment first so the configured Python command resolves correctly.
 
-Key design decisions:
+🏗️ Architecture
 
-1. **The server owns all game state.** The client never receives answers. Each answer is posted
-   to the active *lesson session*, checked on the server, and hearts are deducted there. A
-   lesson can only be completed when every exercise has a correct answer recorded, so XP
-   can't be faked from the browser.
-2. **Routers are thin.** Rules live in `services/`, so they can be unit-tested without HTTP.
-3. **Lazy heart regeneration.** No background job. `hearts_updated_at` is an anchor, and each
-   read adds `floor(elapsed / 30 min)` hearts, then moves the anchor forward by exactly that
-   many intervals so partial progress toward the next heart isn't lost.
-4. **Streak rule.** Finishing a lesson sets `streak = streak + 1` if you last practiced
-   yesterday, leaves it alone if you already practiced today, and resets it to 1 otherwise.
-   The *displayed* streak is 0 once a full day has been missed (`current_streak()`).
-5. **A controllable clock.** All date logic goes through `clock.now()`, which adds a day offset
-   stored in the DB. `POST /api/dev/advance-day` lets you test streak continuation and
-   breaking without waiting a day.
-6. **Content is generated from data.** `seed/content.py` lists words and sentences per skill.
-   `generator.py` deterministically builds 7 varied exercises per lesson, and review (trophy)
-   skills mix the whole unit. Adding a skill means editing data, not code.
-7. **Retry queue.** The lesson player keeps a queue of exercise indexes. A wrong answer moves
-   the exercise to the back, as in the original app, and progress counts only correct answers.
+lingoleap follows a client-server architecture with a typed frontend, a REST API, and a relational database.
 
----
+text
+lingoleap/
+│
+├── frontend/                 # Next.js application
+│   ├── src/app/               # App Router pages
+│   ├── src/components/        # UI and lesson components
+│   ├── src/context/           # Shared learner state
+│   ├── src/lib/               # API client, types and utilities
+│   └── e2e/                   # Playwright tests
+│
+├── backend/                  # FastAPI application
+│   ├── app/
+│   │   ├── routers/           # REST API endpoints
+│   │   ├── services/          # Game and progress logic
+│   │   ├── seed/              # Course content and seed data
+│   │   ├── models.py          # SQLAlchemy models
+│   │   ├── schemas.py         # Pydantic schemas
+│   │   ├── database.py        # Database configuration
+│   │   └── clock.py           # Testable application clock
+│   ├── tests/                 # Pytest test suite
+│   └── requirements.txt
+│
+└── README.md
 
-## Database schema
+Request flow
+text
+┌──────────────────────────────┐
+│       Next.js Frontend       │
+│                              │
+│ Learning Path · Lessons      │
+│ Profile · Leaderboard        │
+└──────────────┬───────────────┘
+               │
+               │ JSON / HTTP
+               ▼
+┌──────────────────────────────┐
+│        FastAPI Backend       │
+│                              │
+│ Routers · Validation         │
+│ Game Rules · Progress        │
+│ XP · Hearts · Achievements   │
+└──────────────┬───────────────┘
+               │
+               ▼
+┌──────────────────────────────┐
+│       SQLite Database        │
+│                              │
+│ Users · Lessons · Sessions   │
+│ Answers · XP · Achievements  │
+└──────────────────────────────┘
 
-```mermaid
-erDiagram
-    languages ||--o{ courses : has
-    courses ||--o{ units : has
-    units ||--o{ skills : has
-    units ||--o{ guidebook_sections : explains
-    guidebook_sections ||--o{ guidebook_phrases : lists
-    skills ||--o{ lessons : has
-    lessons ||--o{ exercises : has
-    users ||--o{ skill_progress : tracks
-    skills ||--o{ skill_progress : "progress of"
-    users ||--o{ lesson_sessions : plays
-    lessons ||--o{ lesson_sessions : "attempt of"
-    lesson_sessions ||--o{ session_answers : records
-    exercises ||--o{ session_answers : "answer to"
-    users ||--o{ daily_xp : earns
-    users ||--o{ user_achievements : unlocks
-    achievements ||--o{ user_achievements : "granted as"
-    courses ||--o{ users : "current course"
+Key engineering decisions
+Server-side answer validation: Correct answers are checked by the backend, not trusted from the browser.
+Session-based lessons: Each lesson attempt records answers, mistakes, and completion status.
+Lazy heart regeneration: Hearts regenerate when the learner's state is read, without requiring a background worker.
+Deterministic exercise generation: Exercises are generated from structured course content.
+Retry queue: Incorrect exercises are revisited until answered correctly.
+Derived learning progress: Lesson lock states are calculated from skill completion.
+Testable time: A controllable clock makes streak behavior testable without waiting for real days to pass.
+🔌 API Overview
 
-    languages { int id PK; string code UK; string name; string flag }
-    courses { int id PK; int language_id FK; string from_language; string title }
-    units { int id PK; int course_id FK; int position; string title; string description; string color }
-    skills { int id PK; int unit_id FK; int position; string title; string icon }
-    lessons { int id PK; int skill_id FK; int position }
-    exercises { int id PK; int lesson_id FK; int position; string type; json payload; json solution }
-    users { int id PK; string username UK; string display_name; bool is_default; int current_course_id FK; int total_xp; int gems; int hearts; datetime hearts_updated_at; int streak; int longest_streak; date last_active_date; int daily_goal_xp }
-    skill_progress { int id PK; int user_id FK; int skill_id FK; int lessons_completed; int crowns; datetime completed_at }
-    lesson_sessions { int id PK; int user_id FK; int lesson_id FK; string status; bool is_practice; int correct_count; int mistakes; int xp_earned; datetime started_at; datetime finished_at }
-    session_answers { int id PK; int session_id FK; int exercise_id FK; json answer; bool is_correct; datetime created_at }
-    daily_xp { int id PK; int user_id FK; date day; int xp; int lessons }
-    guidebook_sections { int id PK; int unit_id FK; int position; string kind; string title; text body }
-    guidebook_phrases { int id PK; int section_id FK; int position; string text; string translation }
-    achievements { int id PK; string key UK; string title; string icon; string metric; int threshold }
-    user_achievements { int id PK; int user_id FK; int achievement_id FK; datetime unlocked_at }
-    app_state { string key PK; string value }
-```
+All API endpoints return JSON unless otherwise specified.
 
-Notes:
+Method	Endpoint	Description
+GET	/api/me	Get learner statistics
+PATCH	/api/me/settings	Update learner settings
+GET	/api/me/profile	Retrieve profile and achievements
+GET	/api/course/path	Fetch units, skills, and progress
+GET	/api/units/{id}/guidebook	Retrieve unit learning material
+POST	/api/lessons/{id}/sessions	Start a lesson
+POST	/api/practice/sessions	Start a practice session
+POST	/api/sessions/{id}/answers	Submit an exercise answer
+POST	/api/sessions/{id}/complete	Complete a lesson and award XP
+POST	/api/sessions/{id}/abandon	Abandon a lesson
+GET	/api/leaderboard	Fetch weekly league standings
+POST	/api/shop/refill-hearts	Purchase a heart refill
 
-- **Ordering.** Ordering uses `position` columns with `UNIQUE(parent_id, position)`, so the path order is explicit and can't contain duplicates.
-- **Exercise data.** `exercises.payload` (sent to the client) and `exercises.solution` (server only) are JSON, because each exercise type has a different shape. Shapes are documented at the top of `services/answers.py`.
-- **`daily_xp`.** One row per user per day. It feeds the daily goal, the 7-day chart and the weekly league, so no aggregate needs to be stored on `users`.
-- **Skill progress.** `skill_progress.lessons_completed` counts progress toward the next crown and resets to 0 when a crown is earned. A skill is *completed* once `crowns ≥ 1`. Lock state is derived rather than stored: the first non-completed skill in path order is active and later ones are locked.
-- **Guidebook.** `guidebook_sections` (kind = phrases or tip, with optional explanation text) hold ordered `guidebook_phrases` (text + translation). It's relational rather than one JSON blob so phrases can be reused, reordered, or linked to exercises later.
-- **Integrity.** Foreign keys are enforced (SQLite `PRAGMA foreign_keys=ON`), and content tables cascade on delete.
+For the complete request and response schemas, visit:
 
----
+http://localhost:8000/docs
 
-## API overview
+🎯 Game Mechanics
+Mechanic	Rule
+Lesson reward	10 XP
+Perfect lesson bonus	+5 XP
+Heart penalty	−1 heart per mistake
+Heart regeneration	1 heart every 30 minutes
+Heart refill	350 gems
+Default daily goal	10 XP
+Available daily goals	10, 20, 30, or 50 XP
+Leaderboard unlock	After 10 completed lessons
+Learning content	3 units and 9 skills
+Achievements	7 unlockable achievements
 
-All endpoints are JSON and act as the default learner. Full schemas are at `/docs`.
+These values reflect the current demo configuration and may be adjusted in the application settings or source code.
 
-| Method | Path | Purpose |
-| --- | --- | --- |
-| GET | `/api/me` | Learner stats: hearts (+ seconds to next), streak, gems, XP today/week, lessons finished (for the leaderboard unlock), course |
-| PATCH | `/api/me/settings` | Update `display_name`, `daily_goal_xp` |
-| GET | `/api/me/profile` | Stats, 7-day XP history, achievements with progress |
-| GET | `/api/units/{id}/guidebook` | Key phrases and grammar tips for a unit (readable even while locked) |
-| GET | `/api/course/path` | Units → skills with `state`, ring progress, crowns, `next_lesson_id` |
-| POST | `/api/lessons/{id}/sessions` | Start a lesson (403 if locked, 409 if no hearts); returns exercises **without answers** |
-| POST | `/api/practice/sessions` | Start a practice session from a finished skill |
-| POST | `/api/sessions/{id}/answers` | `{exercise_id, answer}` → `{correct, solution, note, hearts, out_of_hearts}` |
-| POST | `/api/sessions/{id}/complete` | Award XP, update streak / skill progress / achievements; returns the summary |
-| POST | `/api/sessions/{id}/abandon` | Quit a lesson |
-| GET | `/api/leaderboard` | Weekly league standings |
-| POST | `/api/shop/refill-hearts` | Spend 350 gems to refill hearts |
-| POST | `/api/dev/advance-day` | Shift the clock by `{days}` (testing only; disable with `ENABLE_DEV_ROUTES=false`) |
-| POST | `/api/dev/empty-hearts` · `/api/dev/reset` | Testing helpers |
+🌐 Deployment
 
-Answer formats: multiple choice `{index}` · translate/type `{text}` · fill blank `{choice}` · match pairs `{pairs: [[l, r], …]}`.
-Free-text answers ignore case, punctuation (including ¿ ¡) and extra spaces. Missing accents are accepted with a "Pay attention to the accents" note, as in the original.
+The application is configured for deployment using Vercel for the frontend and Render for the backend.
 
----
+Deployment architecture
+text
+           User's Browser
+                  │
+                  ▼
+          Vercel / Next.js
+                  │
+                  │ /api/* rewrite
+                  ▼
+           Render / FastAPI
+                  │
+                  ▼
+          SQLite or Turso
 
-## Deployment (Render backend + Vercel frontend)
+1. Deploy the backend to Render
+Push your project to GitHub.
+Create a new Blueprint in Render.
+Connect your repository and use the existing render.yaml.
+Configure CORS_ORIGINS with your frontend's production origin.
+Deploy and verify the health endpoint.
+text
+https://YOUR-RENDER-SERVICE.onrender.com/api/health
 
-The repository is configured to run FastAPI on Render and Next.js on Vercel. The frontend sends
-requests to its own `/api/*` paths; `frontend/next.config.mjs` forwards those requests to Render.
+2. Deploy the frontend to Vercel
+Import the GitHub repository into Vercel.
+Set the root directory to frontend.
+Configure the BACKEND_URL environment variable with your Render backend URL, without an /api suffix.
+Deploy the application.
 
-```
-browser ──► frontend (Vercel, Next.js) ──/api/* rewrite──► backend (Render, FastAPI) ──► SQLite
-```
+Example:
 
-### 1. Push the project to GitHub
+env
+BACKEND_URL=https://YOUR-RENDER-SERVICE.onrender.com
 
-Render and Vercel both deploy from a Git repository. Push this project to GitHub and connect that
-repository in each dashboard.
+3. Verify the deployment
 
-### 2. Deploy the backend to Render
+Open the deployed frontend and check that:
 
-1. In Render, choose **New → Blueprint**, connect the repository, and let Render read the
-   repository's `render.yaml`.
-2. The blueprint sets the backend root to `backend`, installs `requirements.txt`, starts Uvicorn,
-   and checks `/api/health`. Set the prompted `CORS_ORIGINS` value to your eventual Vercel site,
-   for example `https://lingoleap.vercel.app`. You can update it after deploying the frontend.
-3. The blueprint uses `sqlite:////var/data/lingo.db` on a persistent disk mounted at `/var/data`.
-   Persistent disks require a paid Render service and keep learner progress when the service
-   restarts. If you use a free service instead, its local SQLite file is temporary; configure
-   Turso using `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` in Render to keep data durable, and
-   remove the `disk` block from `render.yaml`.
-4. Wait for the deploy, then check `https://<your-render-service>.onrender.com/api/health`.
-   Expect `{"status":"ok","database":"sqlite-file"}` with the disk, or `"database":"turso"` with
-   Turso. The first boot creates and seeds the database.
-5. Keep `ENABLE_DEV_ROUTES=false` in production. The blueprint already sets this; it disables
-   endpoints that can reset the database or alter the app clock.
+The learning path loads successfully.
+Lesson sessions can be started and completed.
+Progress and learner statistics update.
+The health endpoint returns a successful response.
 
-### 3. Deploy the frontend to Vercel
+Production note: Render's persistent disks require a paid service. A free service's local SQLite data may not survive restarts or redeployments. For durable storage, configure a persistent disk or the supported Turso database option. Keep developer routes disabled in production.
 
-1. In Vercel, import the same GitHub repository and set **Root Directory** to `frontend`.
-   Vercel should detect Next.js; the build command is `npm run build`.
-2. Add the environment variable `BACKEND_URL` with the Render service's base URL, such as
-   `https://lingo-api.onrender.com` (no `/api` suffix). Apply it to Production and Preview if you
-   want both environments to work, then deploy.
-3. The Vercel build intentionally fails if `BACKEND_URL` is missing or points to localhost.
-   Check `https://<your-vercel-site>/api/health`; it should return the backend health response.
+🔐 Security & Design Notes
+The backend owns lesson validation, heart deductions, and XP awards.
+Exercise solutions are not sent with the initial lesson payload.
+Developer endpoints should be disabled in production.
+The demo currently uses a seeded default learner rather than full user authentication.
+Production deployments should add authentication, authorization, rate limiting, and appropriate database backups before supporting real users.
+🗺️ Roadmap
 
-### 4. Finish configuration and verify
+Potential future improvements include:
 
-Update Render's `CORS_ORIGINS` to the exact Vercel production origin, with no trailing slash, and
-redeploy/restart the backend. The frontend's rewrite means normal app traffic is proxied
-server-side, but keeping the allowed origin accurate is appropriate if the API is called directly.
-Then open the Vercel site and try loading the learning path and completing a lesson. Check Render
-logs if `/api/health` or app requests fail. Render's free web services may sleep when idle, so the
-first request after inactivity can take longer.
+User registration and authentication.
+Multiple language courses.
+Speaking and pronunciation assessment.
+Friend challenges and social learning.
+Streak freezes and subscription features.
+Expanded lessons and adaptive difficulty.
+More leagues and competitive events.
+Additional persistence and deployment options.
 
-No frontend source changes are required for deployment. The Render blueprint disables developer
-routes by default; `frontend/src/lib/api.ts` still contains developer-tool calls, but they will
-return 404 in production.
+Some of these features are currently represented by UI placeholders.
 
-## Assumptions
+🎨 Original Branding
 
-- **Authentication** is simplified. Every request acts as the seeded default learner (`is_default`). Swapping `deps.get_current_user` for real auth touches no router.
-- **One course** is seeded (Spanish for English speakers). The schema supports more.
-- **Match pairs:** the payload exposes pair keys because instant per-tap feedback needs them. The server still verifies the full mapping. Mismatched taps don't cost hearts, as in the original.
-- **Time zone:** days are computed in UTC.
-- **Leaderboard unlock:** a learner joins the league after finishing 10 lessons (`leaderboard_unlock_lessons` in config). The seeded learner has 7, so the "Complete 3 more lessons" card shows.
-- **Leaderboard:** there is a single "Bronze" league with all users. Rivals' weekly XP is seeded across the current week. Leagues reset Monday.
-- **XP:** 10 XP per lesson, +5 for a perfect lesson, practice also gives XP. Heart regeneration is 30 min (`HEART_REGEN_MINUTES`).
-- **Audio:** uses the browser's speech synthesis. Quality depends on the voices installed on the device.
+lingoleap takes inspiration from the visual patterns of gamified language learning while maintaining its own identity.
 
----
+Brand: lingoleap
+Mascot: Pip the fox 🦊
+Typography: Nunito
+Visual style: Playful, colorful, responsive, and accessible
+Learning focus: Spanish for English speakers
 
-## Matching the original UI
+The project does not use Duolingo's owl, logo, wordmark, or proprietary font. All branding is designed around the original lingoleap identity.
 
-`npm run reference` (in `frontend/`) opens a real Chrome window on duolingo.com. **You log
-in yourself**, then it saves full-page screenshots of the main screens at desktop, tablet and
-mobile sizes into `reference/` (git-ignored). Use them to compare spacing and colors side
-by side, and don't commit them or reuse their artwork.
+🤝 Contributing
 
-## Project structure
+Contributions, bug reports, and ideas are welcome!
 
-```
-backend/
-  app/
-    main.py            app, CORS, router wiring, seed on startup
-    config.py          env-driven settings
-    database.py        engine, session, FK pragma
-    models.py          schema
-    schemas.py         API contract
-    clock.py           controllable time
-    deps.py            current learner
-    routers/           me, course, lessons, social, dev
-    services/          answers, gamification, progress, presenters
-    seed/              content, generator, seed
-  tests/               pytest suite
-frontend/
-  src/app/             routes
-  src/components/      ui/, layout/, path/, lesson/, cards/
-  src/context/         LearnerContext
-  src/lib/             api client, types, sound, speech, format, brand
-  e2e/                 Playwright tests
-  scripts/             capture-reference.mjs
-.vscode/               debug configs, tasks, recommended extensions
-```
+Fork the repository.
+Create a feature branch:
+bash
+git checkout -b feature/your-feature
+
+Make your changes and add tests where appropriate.
+Run the backend and frontend test suites.
+Commit your changes:
+bash
+git commit -m "feat: add your feature"
+
+Push your branch and open a pull request.
+📄 License
+
+No license has been specified yet. Add a LICENSE file before distributing the project under an open-source license.
+
+<p align="center">
+<strong>🦊 lingoleap</strong>
+<br />
+Every word is progress. Every lesson is a leap.
+<br /><br />
+<sub>Built with Next.js, FastAPI, SQLAlchemy, and a love for learning.</sub>
+</p>
